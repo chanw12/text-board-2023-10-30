@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.Scanner;
 
 public class TestMain {
+
     @Test
     @DisplayName("명령어 입력창 구현")
     void t1(){
@@ -29,5 +30,21 @@ public class TestMain {
         String cmd = scanner.nextLine();
 
         Assertions.assertThat(cmd).isEqualTo("종료");
+    }
+
+    @Test
+    @DisplayName("종료 기능 확인")
+    void t3(){
+
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+
+        Scanner scanner = TestUtil.genScanner("""
+                종료
+                """.stripIndent());
+        App app = new App(scanner);
+
+        app.run(); // 프로그램 실행
+
+
     }
 }
