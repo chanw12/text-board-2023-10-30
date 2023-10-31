@@ -1,5 +1,6 @@
 package com.ll;
 
+import com.ll.domain.WiseSaying;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,13 @@ public class TestMain {
 
         app.run(); // 프로그램 실행
 
+
+    }
+
+    @Test
+    @DisplayName("명언 클래스 생성 확인")
+    void t4(){
+        WiseSaying wiseSaying = new WiseSaying(WiseSaying.idVal++,"안녕하세요","강찬우");
 
     }
 }
