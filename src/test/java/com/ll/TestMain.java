@@ -15,7 +15,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TestMain {
+    Context context = Context.getInstance();
+    @BeforeEach
+    void setup(){
+        context.setIsEnd(false);
+        WiseSaying.idVal = 1;
 
+    }
     @Test
     @DisplayName("명령어 입력창 구현")
     void t1(){
@@ -54,6 +60,8 @@ public class TestMain {
         app.run(); // 프로그램 실행
         scanner.close();
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+
+
 
     }
 
@@ -102,6 +110,7 @@ public class TestMain {
                         """.stripIndent());
         WiseSayingRepo wiseSayingRepo = new WiseSayingRepo();
         CmdController cmdController = new CmdController(scanner,wiseSayingRepo);
+
         new App(scanner,wiseSayingRepo,cmdController).run();
         List<WiseSaying> wiseSayingList = wiseSayingRepo.getWiseSayingList();
         scanner.close();
