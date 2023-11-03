@@ -2,40 +2,25 @@ package com.ll;
 
 import com.ll.domain.Context;
 import com.ll.domain.WiseSaying;
+import com.ll.domain.controller.CmdController;
 import com.ll.domain.repository.WiseSayingRepo;
 
 import java.util.Scanner;
 
 public class App {
-    private final Scanner scanner;
     private final WiseSayingRepo wiseSayingRepo;
-    public App(Scanner scanner,WiseSayingRepo wiseSayingRepo) {
-        this.scanner = scanner;
+    private final CmdController cmdController;
+    private final Scanner scanner;
+    public App(Scanner scanner,WiseSayingRepo wiseSayingRepo,CmdController cmdController) {
         this.wiseSayingRepo = wiseSayingRepo;
-
+        this.cmdController = cmdController;
+        this.scanner = scanner;
     }
+
 
     public void run(){
         System.out.println("== 명언 앱 ==");
+        cmdController.cmdStart();
 
-        while (true) {
-            System.out.print("명령) ");
-            String cmd = scanner.nextLine();
-
-            if (cmd.equals("종료")) {
-                break;
-            }
-            else if (cmd.equals("등록")) {
-
-                System.out.print("명언 : ");
-                String content = scanner.nextLine();
-                System.out.print("작가 : ");
-                String authorName = scanner.nextLine();
-                WiseSaying wiseSaying = new WiseSaying(WiseSaying.idVal++,content,authorName);
-                System.out.println("1번 명언이 등록되었습니다.");
-                wiseSayingRepo.getWiseSayingList().add(wiseSaying);
-                break;
-            }
-        }
     }
 }
