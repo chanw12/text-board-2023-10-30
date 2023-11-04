@@ -20,7 +20,6 @@ public class TestMain {
     void setup(){
         context.setIsEnd(false);
         WiseSaying.idVal = 1;
-
     }
     @Test
     @DisplayName("명령어 입력창 구현")
@@ -100,7 +99,6 @@ public class TestMain {
     @DisplayName("명언 등록 확인")
     void t6(){
         ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
-        WiseSaying wiseSaying = new WiseSaying(1,"현재를 사랑하라.","작자미상");
 
         Scanner scanner = TestUtil.genScanner("""
                 등록
@@ -115,8 +113,35 @@ public class TestMain {
         List<WiseSaying> wiseSayingList = wiseSayingRepo.getWiseSayingList();
         scanner.close();
 
-        Assertions.assertThat(wiseSaying.getId()).isEqualTo(wiseSayingList.get(0).getId());
+        Assertions.assertThat(wiseSayingList.get(0).getId()).isEqualTo(1);
 
         TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+    }
+
+    @Test
+    @DisplayName("명언 등록시마다 번호 증가 확인")
+    public void t7(){
+        ByteArrayOutputStream byteArrayOutputStream = TestUtil.setOutToByteArray();
+
+        Scanner scanner = TestUtil.genScanner("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                등록
+                2번째
+                작자미상
+                종료
+                        """.stripIndent());
+        WiseSayingRepo wiseSayingRepo = new WiseSayingRepo();
+        CmdController cmdController = new CmdController(scanner,wiseSayingRepo);
+
+        new App(scanner,wiseSayingRepo,cmdController).run();
+        List<WiseSaying> wiseSayingList = wiseSayingRepo.getWiseSayingList();
+        scanner.close();
+
+        Assertions.assertThat(wiseSayingList.get(1).getId()).isEqualTo(2);
+
+        TestUtil.clearSetOutToByteArray(byteArrayOutputStream);
+
     }
 }
