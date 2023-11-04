@@ -30,7 +30,7 @@ public class CmdController {
                 System.out.print("작가 : ");
                 String authorName = scanner.nextLine();
                 WiseSaying wiseSaying = new WiseSaying(WiseSaying.idVal++, content, authorName);
-                System.out.println("1번 명언이 등록되었습니다.");
+                System.out.println(wiseSaying.getId()+"번 명언이 등록되었습니다.");
                 wiseSayingRepo.getWiseSayingList().add(wiseSaying);
             }
         }
